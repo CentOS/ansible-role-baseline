@@ -1,0 +1,11 @@
+[centos-admin]
+name=CentOS Infra Admin repository
+{% if centos_infra_env == 'prod' %}
+baseurl=http://admin-repo.centos.org/admin/$releasever/$basearch/
+{% else %}
+baseurl=http://admin-repo.centos.org/admin.{{ centos_infra_env }}/$releasever/$basearch/
+{% endif %}
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Infra
+

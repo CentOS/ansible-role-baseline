@@ -1,0 +1,12 @@
+# Default list of admins with sudo right
+# Not defined here, but expected at the group_vars/host_vars level
+# list in the following format (example)
+#
+#admins_list:
+#  - login_name: arrfab
+#    full_name: Fabian Arrotin
+#    sudo_right: "true"
+#    ssh_pub_key:
+#
+zabbix_server: localhost  
+tuned_profile: throughput-performance
