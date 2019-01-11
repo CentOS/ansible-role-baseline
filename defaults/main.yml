@@ -10,3 +10,6 @@
 #
 zabbix_server: localhost  
 tuned_profile: throughput-performance
+
+# Enabling the yum auto update script
+yum_auto_update: True

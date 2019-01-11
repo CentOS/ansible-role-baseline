@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Managed by Ansible : don't edit !
+# using the yum_auto_update variable defined at host/group level to enable/disable daily yum update operation
+# Called by: cron (configured by Ansible)
+# Script will also send return code back to Zabbix for monitoring purposes
+
+logfile="/var/log/centos-updates.log"
+
+{% if yum_auto_update %}
+ping -c 1 mirrorlist.centos.org > ${logfile} 2>&1
+yum clean all > /dev/null 2>&1
+sleep $[ ( $RANDOM % 15 ) * 10 ]
+yum update -y --disablerepo=\* --enablerepo=base --enablerepo=updates --enablerepo=extras >>${logfile} 2>&1
+update_status="$?"
+zabbix_sender -c /etc/zabbix/zabbix_agentd.conf -k system.updates -o $update_status >/dev/null 2>&1
+{% else %}
+echo "Ansible yum_auto_update variable set to False, skipping yum update ..." > ${logfile}
+exit 0
+{% endif %}
+

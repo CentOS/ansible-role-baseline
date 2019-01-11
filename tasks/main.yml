@@ -167,4 +167,4 @@
     - local_users_list is defined
     - item.sudo_right 
 
-
+- include_tasks: os_updates.yml
