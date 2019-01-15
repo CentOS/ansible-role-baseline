@@ -23,6 +23,8 @@
     groups: admins
   with_items: "{{ admins_list }}"
   when: admins_list is defined
+  loop_control:
+    label: "{{ item.login_name }}"
   tags:
     - users
 - name: Importing admin user[s] ssh pub keys
@@ -33,6 +35,8 @@
    - "{{ admins_list }}"
    - ssh_pub_key
   when: admins_list is defined
+  loop_control:
+    label: "{{ item.0.login_name }}"
   tags:
     - users
 
@@ -44,6 +48,8 @@
     owner: root 
     group: root
   with_items: "{{ admins_list }}"
+  loop_control:
+    label: "{{ item.login_name }}"
   when: admins_list is defined and item.sudo_right
   tags:
     - users
@@ -144,6 +150,8 @@
     comment: "{{ item.full_name }}" 
     shell: /bin/bash
   with_items: '{{ local_users_list }}'
+  loop_control:
+    label: "{{ item.login_name }}"
   when: local_users_list is defined
   
 - name: Importing local users ssh pub keys
@@ -153,6 +161,8 @@
   with_subelements: 
     - '{{ local_users_list }}'
     - ssh_pub_key
+  loop_control:
+    label: "{{ item.0.login_name }}"
   when: local_users_list is defined
 
 - name: Giving sudo access when needed 
