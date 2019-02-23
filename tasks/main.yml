@@ -176,5 +176,7 @@
   when: 
     - local_users_list is defined
     - item.sudo_right 
-
+  loop_control:
+    label: "{{ item.login_name }}"
+ 
 - include_tasks: os_updates.yml
