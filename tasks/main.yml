@@ -114,7 +114,7 @@
   template:
     src: tuned_active_profile.j2
     dest: /etc/tuned/active_profile
-  register: tuned_setting
+  register: tuned_setting_7
   when: ansible_distribution_major_version == "7" 
   tags:
     - tuned
@@ -123,14 +123,14 @@
   template:
     src: tuned_active_profile.j2
     dest: /etc/tune-profiles/active_profile
-  register: tuned_setting
+  register: tuned_setting_6
   when: ansible_distribution_major_version == "6"
   tags:
     - tuned
 
 - name: Reloading tuned profile if needed
   shell: "tuned-adm profile {{ tuned_profile }}"
-  when: tuned_setting.changed
+  when: tuned_setting_6 is changed or tuned_setting_7 is changed
   tags:
     - tuned
 
