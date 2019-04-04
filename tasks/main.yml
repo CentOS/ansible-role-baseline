@@ -8,6 +8,12 @@
     path: /usr/libexec/centos
     state: directory
 
+- name: UTC everywhere
+  timezone:
+    name: UTC
+  tags:
+    - tz
+
 - name: Adding admin group
   group:
     name: admins
