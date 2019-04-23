@@ -145,6 +145,8 @@
 
 - import_role:
     name: zabbix-agent
+  tags:
+    - monitoring
 
 - import_role:
     name: sshd
