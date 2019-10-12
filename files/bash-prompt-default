@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo -e "[\033[1;91m"`hostname`"\033[0m] "
+

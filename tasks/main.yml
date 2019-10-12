@@ -102,6 +102,20 @@
   tags:
     - motd
 
+- name: Displaying colored hostname in shell
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/sysconfig/{{ item }}"
+    mode: 0755
+    owner: root
+    group: root
+  with_items:
+    - bash-prompt-default
+    - bash-prompt-xterm
+  tags:
+    - motd
+    - prompt
+
 - name: Ensuring tuned is installed
   yum:
     name: tuned
