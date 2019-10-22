@@ -16,6 +16,10 @@
     vCPUs/#cores : {{ ansible_processor_vcpus }} ( {{ ansible_processor[1] }} )
     Memory : {{ ansible_memtotal_mb }} MB
     Zabbix server/proxy : {{ zabbix_server }}
+    Environment : {{ centos_infra_env }} / Member of: 
+    {% for group in group_names -%} 
+       =>  {{ group }} 
+    {% endfor -%}
 
   ~~~~~~~ Contact CentOS Infra team for any change ! ~~~~~~~~
 

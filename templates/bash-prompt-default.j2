@@ -1,0 +1,9 @@
+#!/bin/sh
+{% if centos_infra_env == 'dev' %}
+echo -e "[\e[1;32mDev - `hostname`\e[0m]"
+{% elif centos_infra_env == 'stg' %}
+echo -e "[\e[1;33mStaging - `hostname`\e[0m]"
+{% elif centos_infra_env == 'prod' %}
+echo -e "[\e[1;31mProd - `hostname`\e[0m]"
+{% endif %}
+

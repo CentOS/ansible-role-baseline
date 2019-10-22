@@ -103,8 +103,8 @@
     - motd
 
 - name: Displaying colored hostname in shell
-  copy:
-    src: "{{ item }}"
+  template:
+    src: "{{ item }}.j2"
     dest: "/etc/sysconfig/{{ item }}"
     mode: 0755
     owner: root
