@@ -1,0 +1,8 @@
+# ntpd rules, using define ntp_allowed_clients_list
+{% if ntp_host %}
+{% for entry in ntp_allowed_clients | ipv4 %}
+-A INPUT -m state --state NEW -m udp -p udp --dport 123 --source {{ entry }} -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 123 --source {{ entry }} -j ACCEPT
+{% endfor %}
+{% endif %}
+

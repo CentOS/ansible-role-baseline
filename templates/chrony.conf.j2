@@ -1,0 +1,19 @@
+# This file is managed by Ansible
+
+# Our ntpd server list
+{% for server in ntp_servers_list %}
+server {{ server }} iburst
+{% endfor %}
+
+driftfile /var/lib/chrony/drift
+makestep 1.0 3
+rtcsync
+logdir /var/log/chrony
+
+{% if ntp_host %}
+# Do we want to allow allow ntp/chrony client to get time from us
+# Which subnets
+{% for client in ntp_allowed_clients %}
+allow {{ client }}
+{% endfor %}
+{% endif %}

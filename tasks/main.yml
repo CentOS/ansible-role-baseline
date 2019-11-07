@@ -8,12 +8,6 @@
     path: /usr/libexec/centos
     state: directory
 
-- name: UTC everywhere
-  timezone:
-    name: UTC
-  tags:
-    - tz
-
 - name: Adding admin group
   group:
     name: admins
@@ -190,15 +184,26 @@
 - name: Giving sudo access when needed 
   template:  
     src: templates/sudofile.j2 
-    dest: /etc/sudoers.d/'{{ item.login_name }}' 
+    dest: "/etc/sudoers.d/{{ item.login_name }}" 
     mode: 0440 
     owner: root 
     group: root
-  with_items: '{{ local_users_list }}'
+  with_items: "{{ local_users_list }}"
   when: 
     - local_users_list is defined
     - item.sudo_right 
   loop_control:
     label: "{{ item.login_name }}"
  
+- name: UTC everywhere
+  timezone:
+    name: UTC
+  tags:
+    - tz
+
+- include_tasks: chrony.yml
+  tags:
+    - chrony
+    - time
+
 - include_tasks: os_updates.yml

@@ -1,1 +1,5 @@
 # Defaults handlers for role baseline
+- name: restart_chronyd
+  service:
+    name: chronyd
+    state: restarted

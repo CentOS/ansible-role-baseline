@@ -13,3 +13,16 @@ tuned_profile: throughput-performance
 
 # Enabling the yum auto update script
 yum_auto_update: True
+
+# Which ntp servers to use as sources
+# Defaulting to the ones in pkg
+ntp_servers_list:
+  - 0.centos.pool.ntp.org
+  - 1.centos.pool.ntp.org
+  - 2.centos.pool.ntp.org
+  - 3.centos.pool.ntp.org
+# Just in case we want the node to be also ntpd - default to False
+# Which subnet to allow if set to True, default to 127.0.0.1
+ntp_host: False
+ntp_allowed_clients:
+  - 127.0.0.1

@@ -1,0 +1,32 @@
+- name: Ensuring chrony is installed
+  yum:
+    name: chrony
+    state: installed
+  tags:
+    - chrony
+
+- name: Configuring chrony
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony.conf
+  notify:
+    - restart_chronyd
+  tags:
+    - chrony
+
+- name: Ensuring chronyd is started and enabled
+  service:
+    name: chronyd
+    state: started
+    enabled: True
+  tags:
+    - chrony
+
+- name: IPv4 Firewall rules for ntpd host
+  template:
+    src: iptables-service-ntpd.j2
+    dest: /etc/sysconfig/iptables.d/01-input-service-policy-ntpd
+  when: ntp_host
+  notify:
+    - rebuild_iptables
+    
