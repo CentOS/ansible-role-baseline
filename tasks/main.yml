@@ -153,6 +153,7 @@
 
 - import_role:
     name: zabbix-agent
+  when: zabbix_monitoring   
   tags:
     - monitoring
 

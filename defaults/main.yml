@@ -8,7 +8,11 @@
 #    sudo_right: "true"
 #    ssh_pub_key:
 #
+
+# Do we want zabbix-agent by default
+zabbix_monitoring: True
 zabbix_server: localhost  
+
 tuned_profile: throughput-performance
 
 # Enabling the yum auto update script
