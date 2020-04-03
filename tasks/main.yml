@@ -77,14 +77,9 @@
     mode: 0750
 
 - name: Ensuring some default packages are installed
-  yum: name={{ item }} state=installed
-  with_items:
-    - screen
-    - libsemanage-python
-    - nfs-utils
-    - rsync
-    - bridge-utils
-    - smartmontools
+  yum: 
+    name: "{{ packages_list }}" 
+    state: installed
 
 - name: Customizing motd
   template: 

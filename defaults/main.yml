@@ -9,6 +9,16 @@
 #    ssh_pub_key:
 #
 
+# Default pkgs we want to have everywhere:
+packages_list:
+  - screen
+  - nfs-utils
+  - rsync
+  - bridge-utils
+  - smartmontools
+  - mtr
+
+
 # Do we want zabbix-agent by default
 zabbix_monitoring: True
 zabbix_server: localhost  
@@ -25,6 +35,7 @@ ntp_servers_list:
   - 1.centos.pool.ntp.org
   - 2.centos.pool.ntp.org
   - 3.centos.pool.ntp.org
+
 # Just in case we want the node to be also ntpd - default to False
 # Which subnet to allow if set to True, default to 127.0.0.1
 ntp_host: False
