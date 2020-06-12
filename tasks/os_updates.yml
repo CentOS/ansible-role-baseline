@@ -5,6 +5,8 @@
     mode: 0750
     owner: root
     group: root
+  tags:
+    - updates
 
 - name: Adding yum daily autoupdate
   cron:

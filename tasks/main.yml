@@ -203,3 +203,6 @@
     - time
 
 - include_tasks: os_updates.yml
+  tags:
+    - yum
+    - updates
