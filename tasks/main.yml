@@ -145,6 +145,8 @@
 
 - import_role:
     name: iptables
+  tags:
+    - iptables
 
 - import_role:
     name: zabbix-agent
@@ -154,6 +156,9 @@
 
 - import_role:
     name: sshd
+  tags:
+    - sshd
+    - users
 
 - name: Adding additional users
   user: 
@@ -165,7 +170,9 @@
   loop_control:
     label: "{{ item.login_name }}"
   when: local_users_list is defined
-  
+  tags:
+    - users
+
 - name: Importing local users ssh pub keys
   authorized_key: 
     user: "{{ item.0.login_name }}"
@@ -176,6 +183,8 @@
   loop_control:
     label: "{{ item.0.login_name }}"
   when: local_users_list is defined
+  tags:
+    - users
 
 - name: Giving sudo access when needed 
   template:  
@@ -190,7 +199,9 @@
     - item.sudo_right 
   loop_control:
     label: "{{ item.login_name }}"
- 
+  tags:
+    - users
+
 - name: UTC everywhere
   timezone:
     name: UTC
