@@ -65,6 +65,7 @@
   template: 
     src: centos-admin.repo.j2 
     dest: /etc/yum.repos.d/centos-admin.repo
+    mode: 0644
   tags:
     - yum
 
@@ -87,7 +88,7 @@
     dest: /etc/motd 
     owner: root 
     group: root 
-    mode: 644
+    mode: 0644
   tags:
     - motd
 
@@ -123,6 +124,7 @@
   template:
     src: tuned_active_profile.j2
     dest: /etc/tuned/active_profile
+    mode: 0644
   register: tuned_setting_7
   when: ansible_distribution_major_version == "7" 
   tags:
@@ -132,6 +134,7 @@
   template:
     src: tuned_active_profile.j2
     dest: /etc/tune-profiles/active_profile
+    mode: 0644
   register: tuned_setting_6
   when: ansible_distribution_major_version == "6"
   tags:

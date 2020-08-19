@@ -9,6 +9,7 @@
   template:
     src: chrony.conf.j2
     dest: /etc/chrony.conf
+    mode: 0644
   notify:
     - restart_chronyd
   tags:
@@ -26,6 +27,7 @@
   template:
     src: iptables-service-ntpd.j2
     dest: /etc/sysconfig/iptables.d/01-input-service-policy-ntpd
+    mode: 0644
   when: ntp_host
   notify:
     - rebuild_iptables
