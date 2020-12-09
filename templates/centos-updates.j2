@@ -14,7 +14,7 @@ sleep $[ ( $RANDOM % 15 ) * 10 ]
 {% if ansible_distribution_major_version == '7' %}
 yum update -y --disablerepo=\* --enablerepo=base --enablerepo=updates --enablerepo=extras >>${logfile} 2>&1
 {% else %}
-dnf update -y --disablerepo=\* --enablerepo=BaseOS --enablerepo=AppStream --enablerepo=extras >>${logfile} 2>&1
+dnf update -y --disablerepo=\* --enablerepo=baseos --enablerepo=appstream --enablerepo=extras >>${logfile} 2>&1
 {% endif %}
 update_status="$?"
 zabbix_sender -c /etc/zabbix/zabbix_agentd.conf -k system.updates -o $update_status >/dev/null 2>&1
