@@ -220,3 +220,14 @@
   tags:
     - yum
     - updates
+
+- name: Importing TLS CA that we want to trust (if any)
+  copy:
+    src: "{{ pkistore }}/{{ item }}"
+    dest: "/etc/pki/ca-trust/source/anchors"
+  notify: update_ca_trust
+  with_items: "{{ pki_trusted_ca_list }}"
+  tags:
+    - pki
+
+

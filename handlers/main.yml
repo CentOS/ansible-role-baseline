@@ -3,3 +3,6 @@
   service:
     name: chronyd
     state: restarted
+
+- name: update_ca_trust
+  command: update-ca-trust

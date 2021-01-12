@@ -41,3 +41,7 @@ ntp_servers_list:
 ntp_host: False
 ntp_allowed_clients:
   - 127.0.0.1
+
+# Are there some TLS CA certificates that we want to trust by default ?
+# If list isn't empty it should come from 'pkistore' , like for any role using TLS/PKI
+pki_trusted_ca_list: []
