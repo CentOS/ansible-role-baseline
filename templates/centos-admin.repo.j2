@@ -1,11 +1,27 @@
-[centos-admin]
-name=CentOS Infra Admin repository
-{% if centos_infra_env == 'prod' %}
-baseurl=http://admin-repo.centos.org/admin/$releasever/$basearch/
+{% if ansible_distribution_major_version == '7' and not ansible_architecture == 'x86_64' %}
+{% set contentdir = 'altarch' %}
 {% else %}
-baseurl=http://admin-repo.centos.org/admin.{{ centos_infra_env }}/$releasever/$basearch/
+{% set contentdir = 'centos' %} 
 {% endif %}
+{% if centos_infra_env == 'prod' %}
+
+[centos-admin]
+name=CentOS Infra Prod repository
+baseurl=http://mirror.centos.org/{{ contentdir }}/$releasever/infra/$basearch/infra-common/
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Infra
+{% elif centos_infra_env == 'stg' %}
+[centos-admin]
+name=CentOS Infra Staging repository
+baseurl=http://buildlogs.centos.org/centos/$releasever/infra/$basearch/infra-common/
+enabled=1
+gpgcheck=0
+{% else %}
+[centos-admin]
+name=CentOS Infra dev repository
+baseurl=http://repo.dev.centos.org/$releasever/infra/infra-common/$basearch/
+enabled=1
+gpgcheck=0
+{% endif %}
 
