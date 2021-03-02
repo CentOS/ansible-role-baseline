@@ -13,7 +13,11 @@
   ===========================================================   
    {{ inventory_hostname }} (ENV : {{ centos_infra_env }}) / {{ ansible_distribution }} {{ ansible_distribution_version }} {{ ansible_architecture }} (type : {% if ansible_virtualization_role == 'host' -%} Physical Host {% else -%} {{ ansible_virtualization_type }} guest VM {% endif %}) 
     Machine details: {{ ansible_system_vendor }} {{ ansible_product_name }} (SN: {{ ansible_product_serial }} )
-    vCPUs/#cores : {{ ansible_processor_vcpus }} ( {{ ansible_processor[1] }} )
+{% if ansible_architecture == 's390x' %}
+    #cores: {{ ansible_processor_cores }} ( {{ ansible_processor }} )
+{% else %}    
+    vCPUs/#cores : {% if ansible_processor_vcpus is defined %}{{ ansible_processor_vcpus }} {% endif %} ( {{ ansible_processor[1] }} )
+{% endif %}
     Memory : {{ ansible_memtotal_mb }} MB
     Zabbix server/proxy : {{ zabbix_server }}
     Ansible Roles / Member of: {% for group in group_names %} {{ group | replace("hostgroup-role-","") }}, {% endfor %}
