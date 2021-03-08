@@ -230,4 +230,14 @@
   tags:
     - pki
 
-
+- name: Distributing specific files not coming from roles/templates
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ baseline_distributed_files }}"
+  loop_control:
+    label: "{{ item.dest }}"
+  tags:
+    - distributed_files

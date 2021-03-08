@@ -45,3 +45,13 @@ ntp_allowed_clients:
 # Are there some TLS CA certificates that we want to trust by default ?
 # If list isn't empty it should come from 'pkistore' , like for any role using TLS/PKI
 pki_trusted_ca_list: []
+
+# Do we want to copy some scripts from filestore (no template/no role) on a specific host
+# That permits to have scripts to be copied without being in a role for various reasons
+# example
+# baseline_distributed_files:
+#   - src: "{{ filestore }}/my-script"
+#     dest: /usr/local/bin/my-script
+#     owner: root
+#     mode: 0750
+baseline_distributed_files: []
