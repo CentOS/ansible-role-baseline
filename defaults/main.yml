@@ -55,3 +55,21 @@ pki_trusted_ca_list: []
 #     owner: root
 #     mode: 0750
 baseline_distributed_files: []
+
+# We can also, outside of specific roles, define some booleans that need to be turned on
+# example
+# local_selinux_booleans:
+#   - httpd_use_nfs
+local_selinux_booleans: []
+
+# Same for some specific host-only cron tasks, defined per group/host inventory and not through role
+# default user if undefined would be 'root' and minute/hour/day would be '*' if not specified
+# example
+# local_cron_entries:
+#   - name: say hello
+#     job: logger $(hostname)
+#   - name: say hello from user1
+#     job: logger $USER
+#     user: user1
+#     minute: '*/5'
+local_cron_entries: []

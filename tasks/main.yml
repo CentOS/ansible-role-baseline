@@ -241,3 +241,28 @@
     label: "{{ item.dest }}"
   tags:
     - distributed_files
+
+- name: Enabling specific selinux booleans / per host level
+  seboolean:
+    name: "{{ item }}"
+    state: yes
+    persistent: yes
+  with_items: "{{ local_selinux_booleans }}"  
+  tags:
+    - selinux
+
+- name: Enabling specific host/group cron jobs
+  cron:
+    name: "{{ item.name }}"
+    job: "{{ item.job }}"
+    user: "{{ item.user|default('root') }}"
+    hour: "{{ item.hour|default('*') }}"
+    day: "{{ item.day|default('*') }}"
+    minute: "{{ item.minute|default('*') }}"
+  with_items: "{{ local_cron_entries }}"
+  loop_control:
+    label: "{{ item.name }}"
+  tags:
+    - cron
+
+ 
