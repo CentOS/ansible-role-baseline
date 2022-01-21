@@ -7,7 +7,19 @@
 #    full_name: Fabian Arrotin
 #    sudo_right: "true"
 #    ssh_pub_key:
+#      - ssh-rsa bla
+#      - ssh-rsa bla2
 #
+
+# Same but with additional users that should be created
+# local_users_list: 
+#
+
+# Users to eventually remove 
+# local_expired_users:
+#   - userA
+#   - userB
+local_expired_users: []
 
 # Default pkgs we want to have everywhere:
 packages_list:
