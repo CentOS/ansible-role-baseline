@@ -1,12 +1,12 @@
 - name: Ensuring chrony is installed
-  yum:
+  ansible.builtin.yum:
     name: chrony
     state: installed
   tags:
     - chrony
 
 - name: Configuring chrony
-  template:
+  ansible.builtin.template:
     src: chrony.conf.j2
     dest: /etc/chrony.conf
     mode: 0644
@@ -16,7 +16,7 @@
     - chrony
 
 - name: Ensuring chronyd is started and enabled
-  service:
+  ansible.builtin.service:
     name: chronyd
     state: started
     enabled: True
@@ -24,7 +24,7 @@
     - chrony
 
 - name: IPv4 Firewall rules for ntpd host
-  template:
+  ansible.builtin.template:
     src: iptables-service-ntpd.j2
     dest: /etc/sysconfig/iptables.d/01-input-service-policy-ntpd
     mode: 0644

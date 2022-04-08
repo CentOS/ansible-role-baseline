@@ -1,15 +1,15 @@
 - name: Ensuring ansible can create local facts
-  file:
+  ansible.builtin.file:
     path: /etc/ansible/facts.d
     state: directory
 
 - name: Ensuring we have a place to store centos infra scripts
-  file:
+  ansible.builtin.file:
     path: /usr/libexec/centos
     state: directory
 
 - name: Adding admin group
-  group:
+  ansible.builtin.group:
     name: admins
     state: present
 
@@ -94,7 +94,7 @@
     - motd
 
 - name: Displaying colored hostname in shell
-  template:
+  ansible.builtin.template:
     src: "{{ item }}.j2"
     dest: "/etc/sysconfig/{{ item }}"
     mode: 0755
@@ -108,13 +108,13 @@
     - prompt
 
 - name: Ensuring tuned is installed
-  yum:
+  ansible.builtin.yum:
     name: tuned
     state: installed
   tags:
     - tuned
 - name: Ensuring tuned is started
-  service:
+  ansible.builtin.service:
     name: tuned
     state: started
     enabled: True
@@ -122,7 +122,7 @@
     - tuned
 
 - name: Ensuring correct tuned profile is configured
-  template:
+  ansible.builtin.template:
     src: tuned_active_profile.j2
     dest: /etc/tuned/active_profile
     mode: 0644
@@ -132,7 +132,7 @@
     - tuned
 
 - name: Ensuring correct tuned profile is configured (el6 version)
-  template:
+  ansible.builtin.template:
     src: tuned_active_profile.j2
     dest: /etc/tune-profiles/active_profile
     mode: 0644
@@ -147,18 +147,18 @@
   tags:
     - tuned
 
-- import_role:
+- ansible.builtin.import_role:
     name: iptables
   tags:
     - iptables
 
-- import_role:
+- ansible.builtin.import_role:
     name: zabbix-agent
   when: zabbix_monitoring   
   tags:
     - monitoring
 
-- import_role:
+- ansible.builtin.import_role:
     name: sshd
   tags:
     - sshd
@@ -207,7 +207,7 @@
     - users
 
 - name: Removing expired accounts
-  user:
+  ansible.builtin.user:
     name: "{{ item }}"
     state: absent
     remove: False
@@ -217,7 +217,7 @@
     - cleanup
 
 - name: UTC everywhere
-  timezone:
+  community.general.timezone:
     name: UTC
   tags:
     - tz
@@ -254,7 +254,7 @@
     - distributed_files
 
 - name: Enabling specific selinux booleans / per host level
-  seboolean:
+  ansible.posix.seboolean:
     name: "{{ item }}"
     state: yes
     persistent: yes
@@ -263,7 +263,7 @@
     - selinux
 
 - name: Enabling specific host/group cron jobs
-  cron:
+  ansible.builtin.cron:
     name: "{{ item.name }}"
     job: "{{ item.job }}"
     user: "{{ item.user|default('root') }}"
@@ -276,4 +276,13 @@
   tags:
     - cron
 
- 
+- name: Updating crypto-policy if needed
+  ansible.builtin.shell:
+    cmd: "update-crypto-policies --show |grep -q {{ baseline_crypto_policy }} || (update-crypto-policies --set {{ baseline_crypto_policy }} >/dev/null 2>&1 ; echo changed)"
+  register: crypto_policy
+  changed_when: '"changed" in crypto_policy.stdout'
+  when:
+    - baseline_crypto_policy is defined
+    - ansible_distribution_major_version | int > 7
+  tags:
+    - crypto_policy

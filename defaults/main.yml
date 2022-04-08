@@ -85,3 +85,8 @@ local_selinux_booleans: []
 #     user: user1
 #     minute: '*/5'
 local_cron_entries: []
+
+# We can also set crypto-policy on centos stream 8+
+# We just need to define one (none by default) that really exists (/usr/share/crypto-policies/policies/)
+# example (not useful as it's already DEFAULT) :
+# baseline_crypto_policy: DEFAULT 

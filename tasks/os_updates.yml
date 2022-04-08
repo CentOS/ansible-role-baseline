@@ -1,5 +1,5 @@
 - name: Adding the centos-updates yum script
-  template:
+  ansible.builtin.template:
     src: centos-updates.j2
     dest: /usr/libexec/centos/centos-updates
     mode: 0750
@@ -9,7 +9,7 @@
     - updates
 
 - name: Adding yum daily autoupdate
-  cron:
+  ansible.builtin.cron:
     name: "Yum daily update"
     job: "/usr/libexec/centos/centos-updates"
     user: root
@@ -19,7 +19,7 @@
     minute: "0"
 
 - name: Cleaning-up some older scripts from puppet
-  file:
+  ansible.builtin.file:
     state: absent
     path: "{{ item }}"
   with_items:
