@@ -1,0 +1,19 @@
+# Tasks included for RHEL hosts
+- block:
+    - name: Dropping needed TLS file for cdn access
+      copy:
+        src: "{{ pkistore }}/rhcdn/{{ item }}"
+        dest: "/etc/pki/entitlement/{{ item }}"
+      with_items:
+        - "{{ rhel_cdn_mirror_key }}"
+        - "{{ rhel_cdn_mirror_crt }}"
+  when: rhel_host_use_cdn   
+  tags:
+    - rhel
+
+- name: Dropping .repo template for RHEL hosts
+  template:
+    src: rhel.repo.j2
+    dest: /etc/yum.repos.d/rhel.repo
+  tags:
+    - rhel

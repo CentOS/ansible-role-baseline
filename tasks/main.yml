@@ -55,6 +55,11 @@
   tags:
     - users
 
+- include_tasks: rhel.yml
+  when: ansible_distribution == 'RedHat'
+  tags:
+    - rhel
+
 - name: Adding CentOS Infra key
   copy: 
     src: files/RPM-GPG-KEY-CentOS-Infra 

@@ -30,6 +30,18 @@ packages_list:
   - smartmontools
   - mtr
 
+# RHEL support
+# As we'll start also deploying RHEL we need to drop .repo and TLS certs to access CDN
+# We'll use {{ ansible_distribution }} to verify if that's 'RedHat'
+# Does this RHEL host needs cdn access instead of internal mirror
+rhel_host_use_cdn: False
+# Depending on previous booleans, either use internal or cdn mirror
+rhel_internal_mirror: http://mirror.internal/RHEL/
+# For CDN we'll distribute some TLS files from pkistore
+rhel_cdn_mirror: http://fqdn.cdn
+rhel_cdn_mirror_key: key.pem
+rhel_cdn_mirror_crt: crt.pem
+
 
 # Do we want zabbix-agent by default
 zabbix_monitoring: True

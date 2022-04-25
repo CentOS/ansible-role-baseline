@@ -1,0 +1,74 @@
+# This .repo is managed by Ansible
+# Depending on ansible host/group vars, it will be pointing to internal or external mirror/CDN
+
+{% if rhel_host_use_cdn %}
+# Using RH CDN
+[baseos]
+name = Red Hat Enterprise Linux {{ ansible_distribution_major_version }} / BaseOS
+baseurl = {{ rhel_cdn_mirror }}/baseos/os
+enabled = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+sslverify = 1
+sslcacert = /etc/rhsm/ca/{{ rhel_cdn_mirror_ca }}
+sslclientkey = /etc/pki/entitlement/{{ rhel_cdn_mirror_key }}
+sslclientcert = /etc/pki/entitlement/{{ rhel_cdn_mirror_crt }}
+metadata_expire = 86400
+enabled_metadata = 1
+ 
+[appstream]
+name = Red Hat Enterprise Linux {{ ansible_distribution_major_version }} / AppStream
+baseurl = {{ rhel_cdn_mirror }}/appstream/os
+enabled = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+sslverify = 1
+sslcacert = /etc/rhsm/ca/{{ rhel_cdn_mirror_ca }}
+sslclientkey = /etc/pki/entitlement/{{ rhel_cdn_mirror_key }}
+sslclientcert = /etc/pki/entitlement/{{ rhel_cdn_mirror_crt }}
+metadata_expire = 86400
+enabled_metadata = 1
+ 
+[crb]
+name = Red Hat Enterprise Linux {{ ansible_distribution_major_version }} / CRB
+baseurl = {{ rhel_cdn_mirror }}/codeready-builder/os
+enabled = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+sslverify = 1
+sslcacert = /etc/rhsm/ca/{{ rhel_cdn_mirror_ca }}
+sslclientkey = /etc/pki/entitlement/{{ rhel_cdn_mirror_key }}
+sslclientcert = /etc/pki/entitlement/{{ rhel_cdn_mirror_crt }}
+metadata_expire = 86400
+enabled_metadata = 1
+
+{% else %}
+# Using internal mirror
+[baseos]
+name = Red Hat Enterprise Linux {{ ansible_distribution_major_version }} / BaseOS
+baseurl = {{ rhel_internal_mirror }}/baseos/$basearch/os
+enabled = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+metadata_expire = 86400
+enabled_metadata = 1
+
+[appstream]
+name = Red Hat Enterprise Linux {{ ansible_distribution_major_version }} / AppStream
+baseurl = {{ rhel_internal_mirror }}/appstream/$basearch/os
+enabled = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+metadata_expire = 86400
+enabled_metadata = 1
+
+[crb]
+name = Red Hat Enterprise Linux {{ ansible_distribution_major_version }} / CRB
+baseurl = {{ rhel_internal_mirror }}/crb/$basearch/os
+enabled = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+metadata_expire = 86400
+enabled_metadata = 1
+
+{% endif %}
