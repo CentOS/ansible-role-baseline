@@ -235,6 +235,7 @@
 - include_tasks: os_updates.yml
   tags:
     - yum
+    - dnf
     - updates
 
 - name: Importing TLS CA that we want to trust (if any)

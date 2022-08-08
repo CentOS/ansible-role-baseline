@@ -1,3 +1,17 @@
+- block:
+    - name: Ensuring we have correct dnf versionlock plugin
+      ansible.builtin.yum:
+        name: python3-dnf-plugin-versionlock
+        state: installed
+    - name: Pin pkgs to specific version (if needed)
+      ansible.builtin.template:
+        src: dnf-versionlock.list.j2
+        dest: /etc/dnf/plugins/versionlock.list
+  when:
+    - ansible_distribution_major_version == '8'
+  tags:
+    - dnf
+
 - name: Adding the centos-updates yum script
   ansible.builtin.template:
     src: centos-updates.j2
@@ -18,9 +32,3 @@
     hour: "9"
     minute: "0"
 
-- name: Cleaning-up some older scripts from puppet
-  ansible.builtin.file:
-    state: absent
-    path: "{{ item }}"
-  with_items:
-    - /usr/local/bin/centos-updates

@@ -1,0 +1,8 @@
+{% if ansible_distribution == 'CentOS' %}
+# Using centos_8s_versionlock_pkgs variable
+{% for pkg in centos_8s_versionlock_pkgs %}
+{{ pkg }}
+{% endfor %}
+{% elif ansible_distribution == 'RedHat' %}
+# Using rhel_8_versionlock_pkgs variable
+{% endif %}

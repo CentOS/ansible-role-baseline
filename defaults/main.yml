@@ -102,3 +102,10 @@ local_cron_entries: []
 # We just need to define one (none by default) that really exists (/usr/share/crypto-policies/policies/)
 # example (not useful as it's already DEFAULT) :
 # baseline_crypto_policy: DEFAULT 
+
+
+# DNF versionlock
+# We can use dnf-versionlock plugin to pin specific version (in case of issues with updated pkgs)
+# It currently support only el8/el8s with the following lists:
+centos_8s_versionlock_pkgs: []
+rhel_8_versionlock_pkgs: []
