@@ -55,6 +55,18 @@
   tags:
     - users
 
+- name: Configuring dnf/yum proxy settings if needed
+  ansible.builtin.lineinfile:
+    path: /etc/yum.conf
+    state: present
+    regexp: '^proxy='
+    line: proxy={{ dnf_proxy_url }}
+  when: 
+    - dnf_use_proxy is defined
+    - dnf_use_proxy
+  tags:
+    dnf_proxy
+
 - include_tasks: rhel.yml
   when: ansible_distribution == 'RedHat'
   tags:

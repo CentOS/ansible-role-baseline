@@ -109,3 +109,8 @@ local_cron_entries: []
 # It currently support only el8/el8s with the following lists:
 centos_8s_versionlock_pkgs: []
 rhel_8_versionlock_pkgs: []
+
+# Do we need yum to go through proxy ?
+# Not system-wide so only yum
+dnf_use_proxy: False
+dnf_proxy_url: http://caching.internal:8080
