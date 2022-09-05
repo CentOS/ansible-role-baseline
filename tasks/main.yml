@@ -55,6 +55,15 @@
   tags:
     - users
 
+- name: Modifying /etc/hosts if defined/needed (special case)
+  ansible.builtin.blockinfile:
+    path: /etc/hosts
+    block: "{{ etc_hosts_block }}"
+  when:
+    - etc_hosts_block is defined
+  tags:
+    - hosts
+
 - name: Configuring dnf/yum proxy settings if needed
   ansible.builtin.lineinfile:
     path: /etc/yum.conf

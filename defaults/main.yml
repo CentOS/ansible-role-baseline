@@ -114,3 +114,12 @@ rhel_8_versionlock_pkgs: []
 # Not system-wide so only yum
 dnf_use_proxy: False
 dnf_proxy_url: http://caching.internal:8080
+
+
+# Do we want to modify /etc/hosts with a block ? 
+# We normally only use dns resolvers/zones but for tmp .dev. env we can define a block that will be added
+# If undefined, it's just skipped (default)
+# example:
+# etc_hosts_block: |
+#   192.168.1.1 node1
+#   192.168.1.2 node2
