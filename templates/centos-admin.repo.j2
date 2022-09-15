@@ -3,25 +3,50 @@
 {% else %}
 {% set contentdir = 'centos' %} 
 {% endif %}
-{% if centos_infra_env == 'prod' %}
 
+{% if ansible_distribution_major_version == '9' %}
+{% if centos_infra_env == 'prod' %}
 [centos-admin]
-name=CentOS Infra Prod repository
+name=CentOS Infra Prod - el{{ansible_distribution_major_version }}
+baseurl=http://mirror.stream.centos.org/SIGs/9-stream/infra/$basearch/infra-common/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Infra
+{% elif centos_infra_env == 'stg' %}
+[centos-admin]
+name=CentOS Infra Staging - el{{ansible_distribution_major_version }}
+baseurl=https://buildlogs.centos.org/centos/9-stream/infra/$basearch/infra-common/
+enabled=1
+gpgcheck=0
+{% else %}
+[centos-admin]
+name=CentOS Infra dev - el{{ansible_distribution_major_version }}
+baseurl=https://repo.dev.centos.org/9-stream/infra/infra-common/$basearch/
+enabled=1
+gpgcheck=0
+{% endif %}
+
+{% else %}
+
+{% if centos_infra_env == 'prod' %}
+[centos-admin]
+name=CentOS Infra Prod - el{{ansible_distribution_major_version }}
 baseurl=http://mirror.centos.org/{{ contentdir }}/$releasever/infra/$basearch/infra-common/
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Infra
 {% elif centos_infra_env == 'stg' %}
 [centos-admin]
-name=CentOS Infra Staging repository
-baseurl=http://buildlogs.centos.org/centos/$releasever/infra/$basearch/infra-common/
+name=CentOS Infra Staging - el{{ansible_distribution_major_version }}
+baseurl=https://buildlogs.centos.org/centos/$releasever/infra/$basearch/infra-common/
 enabled=1
 gpgcheck=0
 {% else %}
 [centos-admin]
-name=CentOS Infra dev repository
-baseurl=http://repo.dev.centos.org/$releasever/infra/infra-common/$basearch/
+name=CentOS Infra dev - el{{ansible_distribution_major_version }}
+baseurl=https://repo.dev.centos.org/$releasever/infra/infra-common/$basearch/
 enabled=1
 gpgcheck=0
 {% endif %}
 
+{% endif %}
