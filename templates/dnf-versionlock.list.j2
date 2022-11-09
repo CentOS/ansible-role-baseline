@@ -5,4 +5,7 @@
 {% endfor %}
 {% elif ansible_distribution == 'RedHat' %}
 # Using rhel_8_versionlock_pkgs variable
+{% for pkg in rhel_8_versionlock_pkgs %}
+{{ pkg }}
+{% endfor %}
 {% endif %}
