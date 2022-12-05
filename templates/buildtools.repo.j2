@@ -6,20 +6,20 @@
 
 {% if centos_infra_env == 'prod' %}
 [centos-buildtools-common]
-name=CentOS koji buildtools repository
+name=CentOS buildtools repository
 baseurl=http://mirror.centos.org/{{ contentdir }}/$releasever/infra/$basearch/buildtools-common/
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Infra
 {% elif centos_infra_env == 'stg' %}
 [centos-buildtools-common]
-name=CentOS STG koji buildtools repository
+name=CentOS STG buildtools repository
 baseurl=https://buildlogs.centos.org/centos/$releasever/infra/$basearch/buildtools-common/
 enabled=1
 gpgcheck=0
 {% else %}
 [centos-buildtools-common]
-name=CentOS dev koji buildtools repository
+name=CentOS dev buildtools repository
 baseurl=https://repo.dev.centos.org/$releasever/infra/buildtools-common/$basearch/
 enabled=1
 gpgcheck=0
