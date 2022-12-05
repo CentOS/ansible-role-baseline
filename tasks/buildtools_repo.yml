@@ -1,0 +1,6 @@
+- name: Add the buildtools repo if needed
+  template:
+    src: buildtools.repo.j2
+    dest: /etc/yum.repos.d/buildtools.repo
+  tags:
+    - repo
