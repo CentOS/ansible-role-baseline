@@ -29,6 +29,7 @@ packages_list:
   - bridge-utils
   - smartmontools
   - mtr
+  - pv
 
 # RHEL support
 # As we'll start also deploying RHEL we need to drop .repo and TLS certs to access CDN
