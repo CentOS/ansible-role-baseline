@@ -30,6 +30,7 @@ packages_list:
   - smartmontools
   - mtr
   - pv
+  - jq
 
 # RHEL support
 # As we'll start also deploying RHEL we need to drop .repo and TLS certs to access CDN
