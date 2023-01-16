@@ -1,5 +1,10 @@
 # Tasks included for RHEL hosts
 - block:
+    - name: Ensuring we have a place to drop TLS cdn files
+      file:
+        path: /etc/pki/entitlement
+        state: directory
+
     - name: Dropping needed TLS file for cdn access
       copy:
         src: "{{ pkistore }}/rhcdn/{{ item }}"
