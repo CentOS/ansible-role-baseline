@@ -125,3 +125,12 @@ dnf_proxy_url: http://caching.internal:8080
 # etc_hosts_block: |
 #   192.168.1.1 node1
 #   192.168.1.2 node2
+
+# Do we want to define nfs mount points ? 
+# Example:
+# nfs_mountpoints:
+#   - src: nfs-host.domain.com:/exports/vol1
+#     dest: /mnt/vol/vol1
+#   - src: nfs-host2.domain.com:/exports/vol2
+#     dest: /mnt/vol/vol2
+nfs_mountpoints: []    

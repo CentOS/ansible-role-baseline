@@ -313,3 +313,31 @@
     - ansible_distribution_major_version | int > 7
   tags:
     - crypto_policy
+
+
+- block:
+    - name: Ensuring addtional volume[s] is/are defined
+      ansible.posix.mount:
+        src: "{{ item.src }}"
+        path: "{{ item.dest }}"
+        fstype: nfs
+        state: present
+      register: mountpoints
+      with_items: "{{ nfs_mountpoints }}"
+      loop_control:
+        label: "{{ item.dest }}"
+      tags:
+        - nfs
+
+    - name: Ensuring addtional volume[s] is/are mounted
+      ansible.posix.mount:
+        src: "{{ item.item.src }}"
+        path: "{{ item.item.dest }}"
+        fstype: nfs
+        state: mounted
+      with_items: "{{ mountpoints.results }}"
+      when: item.changed
+      loop_control:
+        label: "{{ item.item.dest }}"
+      tags:
+        - nfs    
