@@ -133,4 +133,5 @@ dnf_proxy_url: http://caching.internal:8080
 #     dest: /mnt/vol/vol1
 #   - src: nfs-host2.domain.com:/exports/vol2
 #     dest: /mnt/vol/vol2
+#     opts: defaults,ro   # specifying options for mount otherwise we'll mount with 'defaults'
 nfs_mountpoints: []    

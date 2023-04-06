@@ -322,6 +322,7 @@
         path: "{{ item.dest }}"
         fstype: nfs
         state: present
+        opts: "{{ item.opts | default('defaults') }}"
       register: mountpoints
       with_items: "{{ nfs_mountpoints }}"
       loop_control:
@@ -335,6 +336,7 @@
         path: "{{ item.item.dest }}"
         fstype: nfs
         state: mounted
+        opts: "{{ item.opts | default('defaults') }}"
       with_items: "{{ mountpoints.results }}"
       when: item.changed
       loop_control:
