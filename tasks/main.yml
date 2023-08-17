@@ -343,3 +343,14 @@
         label: "{{ item.item.dest }}"
       tags:
         - nfs    
+
+- name: Kernel/sysctl parameters
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_set: yes
+    reload: yes
+  with_items: "{{ sysctl_settings }}"
+  tags:
+    - sysctl

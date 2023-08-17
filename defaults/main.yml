@@ -135,3 +135,11 @@ dnf_proxy_url: http://caching.internal:8080
 #     dest: /mnt/vol/vol2
 #     opts: defaults,ro   # specifying options for mount otherwise we'll mount with 'defaults'
 nfs_mountpoints: []    
+
+# kernel/sysctl values
+# example
+# sysctl_settings:
+#   - name: net.ipv4.ip_forward 
+#     value: '1'
+
+sysctl_settings: []
