@@ -195,7 +195,7 @@
     name: "{{ item.login_name }}"
     state: present 
     comment: "{{ item.full_name }}" 
-    shell: /bin/bash
+    shell: "{{ item.shell | default('/bin/bash') }}"
   with_items: "{{ local_users_list }}"
   loop_control:
     label: "{{ item.login_name }}"
