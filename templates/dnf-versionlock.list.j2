@@ -1,11 +1,26 @@
 {% if ansible_distribution == 'CentOS' %}
+{% if ansible_distribution_major_version == '8' %} 
 # Using centos_8s_versionlock_pkgs variable
 {% for pkg in centos_8s_versionlock_pkgs %}
 {{ pkg }}
 {% endfor %}
+{% elif ansible_distribution_major_version == '9' %}
+# Using centos_9s_versionlock_pkgs variable
+{% for pkg in centos_9s_versionlock_pkgs %}
+{{ pkg }}
+{% endfor %}
+{% endif %}
+
 {% elif ansible_distribution == 'RedHat' %}
+{% if ansible_distribution_major_version == '8' %} 
 # Using rhel_8_versionlock_pkgs variable
 {% for pkg in rhel_8_versionlock_pkgs %}
 {{ pkg }}
 {% endfor %}
+{% elif ansible_distribution_major_version == '9' %}
+# Using rhel_9_versionlock_pkgs variable
+{% for pkg in rhel_9_versionlock_pkgs %}
+{{ pkg }}   
+{% endfor %}
+{% endif %}
 {% endif %}

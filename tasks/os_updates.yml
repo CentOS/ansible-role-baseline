@@ -8,7 +8,7 @@
         src: dnf-versionlock.list.j2
         dest: /etc/dnf/plugins/versionlock.list
   when:
-    - ansible_distribution_major_version == '8'
+    - ansible_distribution_major_version != '7'  
   tags:
     - dnf
 
