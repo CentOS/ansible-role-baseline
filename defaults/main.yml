@@ -110,7 +110,10 @@ local_cron_entries: []
 # We can use dnf-versionlock plugin to pin specific version (in case of issues with updated pkgs)
 # It currently support only el8/el8s with the following lists:
 centos_8s_versionlock_pkgs: []
+centos_9s_versionlock_pkgs: []
 rhel_8_versionlock_pkgs: []
+rhel_9_versionlock_pkgs: []
+
 
 # Do we need yum to go through proxy ?
 # Not system-wide so only yum
