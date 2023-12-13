@@ -81,20 +81,20 @@
   tags:
     - rhel
 
-- name: Adding CentOS Infra key
-  copy: 
-    src: files/RPM-GPG-KEY-CentOS-Infra 
-    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Infra
-  tags:
-    - yum
+- block:
+    - name: Adding CentOS Infra key
+      copy: 
+        src: files/RPM-GPG-KEY-CentOS-Infra 
+        dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Infra
 
-- name: Configuring CentOS Infra admin repo
-  template: 
-    src: centos-admin.repo.j2 
-    dest: /etc/yum.repos.d/centos-admin.repo
-    mode: 0644
+    - name: Configuring CentOS Infra admin repo
+      template: 
+        src: centos-admin.repo.j2 
+        dest: /etc/yum.repos.d/centos-admin.repo
+        mode: 0644
   tags:
     - yum
+  when: centos_infra_repo  
 
 - name: Creating selinux custom policy drop folder
   file: 
@@ -118,6 +118,7 @@
     mode: 0644
   tags:
     - motd
+  when: customized_motd
 
 - name: Displaying colored hostname in shell
   ansible.builtin.template:
@@ -132,6 +133,7 @@
   tags:
     - motd
     - prompt
+  when: customized_motd
 
 - name: Ensuring tuned is installed
   ansible.builtin.yum:

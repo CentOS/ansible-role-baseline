@@ -45,6 +45,10 @@ rhel_cdn_mirror: http://fqdn.cdn
 rhel_cdn_mirror_key: key.pem
 rhel_cdn_mirror_crt: crt.pem
 
+# import CentOS Infra repositories (enabled by default)
+centos_infra_repo: True
+# using motd template (default to true)
+customized_motd: True
 
 # Do we want zabbix-agent by default
 zabbix_monitoring: True
