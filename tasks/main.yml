@@ -356,3 +356,16 @@
   with_items: "{{ sysctl_settings }}"
   tags:
     - sysctl
+
+- name: Extra directories
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    setype: "{{ item.secontext | default('_default') }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+  with_items: "{{ directories_list }}"
+  loop_control:
+    label: "{{ item.path }}"
+  tags:
+    - directories

@@ -151,3 +151,16 @@ nfs_mountpoints: []
 #     value: '1'
 
 sysctl_settings: []
+
+# Directories to create eventually
+# example
+# directories_list:
+#   - path: /srv/test
+#     owner: root
+#     group: group
+#   - path: /srv/other
+#     owner: user1
+#     group: collab
+#     secontext: public_content_rw_t # managing specific selinux context on directory
+     
+directories_list: []
