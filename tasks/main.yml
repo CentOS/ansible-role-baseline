@@ -369,3 +369,7 @@
     label: "{{ item.path }}"
   tags:
     - directories
+
+- include_tasks: rssh-users.yml
+  tags:
+    - rssh

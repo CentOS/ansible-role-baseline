@@ -164,3 +164,15 @@ sysctl_settings: []
 #     secontext: public_content_rw_t # managing specific selinux context on directory
      
 directories_list: []
+
+# restricted shell (rssh) : to only allow specific users to scp/sftp/rsync over ssh and no shell
+# Default to false (task will be imported only on enabled hosts
+rssh_host: False
+# Defining some restricted users (don't declare these in any other ansible list !
+# rssh_users_list:
+#   - login_name: jdoe
+#     full_name: John Doe
+#     ssh_pub_keys:
+#       - ssh-rsa blabla
+rssh_users_list: []
+
