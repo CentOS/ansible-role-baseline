@@ -1,0 +1,43 @@
+# Task imported for restricted shell, limited to scp/sftp/rsync (no other shell)
+
+- block:
+    - name: Ensuring that rssh is installed for specific shell
+      yum:
+        name: rssh
+        state: installed
+
+    - name: Ensuring some protocols are allowed through rssh
+      blockinfile:
+        path: /etc/rssh.conf
+        block: |
+          allowscp
+          allowsftp
+          allowrsync
+
+    - name: Default umask for rssh push
+      lineinfile:
+        path: /etc/rssh.conf
+        regexp: '^umask =' 
+        line: 'umask = 002'
+        state: present
+    
+    - name: Adding specific restricted shell users
+      user: 
+        name: '{{ item.login_name }}' 
+        state: present 
+        comment: '{{ item.full_name }}'
+        groups: rsshusers
+        append: True
+        shell: /bin/rssh
+      with_items: "{{ rssh_users_list }}"  
+      
+    - name: Importing rssh users ssh pub keys
+      authorized_key: 
+        user: '{{ item.0.login_name }}' 
+        key: "{{ item.1 }}"
+      with_subelements: 
+        - '{{ rssh_users_list }}'  
+        - ssh_pub_keys
+  tags:
+    - rssh
+  when: rssh_host  

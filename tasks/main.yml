@@ -81,6 +81,16 @@
   tags:
     - rhel
 
+- name: Ensuring CRB is enabled on CentOS Stream hosts
+  shell:
+    cmd: dnf repolist|grep -q crb || (dnf config-manager --set-enabled crb ; exit 2)
+  register: crb
+  changed_when: crb.rc=='2'
+  when:
+    - ansible_distribution == 'CentOS'
+  tags:
+    - repo
+
 - block:
     - name: Adding CentOS Infra key
       copy: 
