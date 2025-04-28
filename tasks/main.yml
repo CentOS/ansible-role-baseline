@@ -85,7 +85,8 @@
   shell:
     cmd: dnf repolist|grep -q crb || (dnf config-manager --set-enabled crb ; exit 2)
   register: crb
-  changed_when: crb.rc=='2'
+  changed_when: crb.rc == 2
+  failed_when: crb.rc == 1
   when:
     - ansible_distribution == 'CentOS'
   tags:
