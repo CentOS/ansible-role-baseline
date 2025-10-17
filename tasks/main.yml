@@ -327,6 +327,12 @@
   tags:
     - crypto_policy
 
+- name: Configuring NFS mount default options
+  ansible.builtin.lineinfile:
+    path: /etc/nfsmount.conf
+    state: present
+    line: Sec=sys 
+
 
 - block:
     - name: Ensuring addtional volume[s] is/are defined
