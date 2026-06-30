@@ -131,6 +131,17 @@
     - motd
   when: customized_motd
 
+- name: Ensuring some el snippet aren't shown on login
+  file:
+    state: absent
+    path: "/etc/motd.d/{{ item }}"
+  loop:
+    - cockpit
+    - insights-client
+  tags:
+    - motd
+
+
 - name: Displaying colored hostname in shell
   ansible.builtin.template:
     src: "{{ item }}.j2"
