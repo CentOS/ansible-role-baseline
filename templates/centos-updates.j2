@@ -7,14 +7,13 @@
 
 logfile="/var/log/centos-updates.log"
 
+# Checking for some additional repositories and enable these for this script
+extra_enabled_repos=$(ls /etc/centos.repos.d/)
+dnf_extra_repos_arg=$(for i in ${extra_enabled_repos} ; do echo -n "--enablerepo=${i} " ; done)
+
 {% if yum_auto_update %}
-yum clean all > /dev/null 2>&1
-sleep $[ ( $RANDOM % 15 ) * 10 ]
-{% if ansible_distribution_major_version == '7' %}
-yum update -y --disablerepo=\* --enablerepo=base --enablerepo=updates --enablerepo=extras >>${logfile} 2>&1
-{% else %}
-dnf update -y --disablerepo=\* --enablerepo=baseos --enablerepo=appstream --enablerepo=crb >>${logfile} 2>&1
-{% endif %}
+dnf makecache 2>&1 >${logfile} 
+dnf update -y --disablerepo=\* --enablerepo=baseos --enablerepo=appstream --enablerepo=crb ${dnf_extra_repos_arg} 2>&1 >>${logfile}
 update_status="$?"
 zabbix_sender -c /etc/zabbix/zabbix_agentd.conf -k system.updates -o $update_status >/dev/null 2>&1
 {% else %}

@@ -3,6 +3,11 @@
     path: /etc/ansible/facts.d
     state: directory
 
+- name: Creating folder to drop enabled repositories
+  ansible.builtin.file:
+    path: /etc/centos.repos.d
+    state: directory
+
 - name: Ensuring we have a place to store centos infra scripts
   ansible.builtin.file:
     path: /usr/libexec/centos
