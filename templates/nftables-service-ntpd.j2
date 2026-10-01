@@ -1,0 +1,8 @@
+# ntpd rules, using define ntp_allowed_clients_list
+{% if ntp_host %}
+{% for entry in ntp_allowed_clients | ipv4 %}
+add rule inet filter INPUT ct state new ip saddr {{ entry|default('0.0.0.0/0') }} tcp dport 123 counter accept
+add rule inet filter INPUT ct state new ip saddr {{ entry|default('0.0.0.0/0') }} udp dport 123 counter accept
+{% endfor %}
+{% endif %}
+

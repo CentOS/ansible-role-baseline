@@ -23,12 +23,25 @@
   tags:
     - chrony
 
-- name: IPv4 Firewall rules for ntpd host
+- name: IPv4 iptables rules for ntpd host
   ansible.builtin.template:
     src: iptables-service-ntpd.j2
     dest: /etc/sysconfig/iptables.d/01-input-service-policy-ntpd
     mode: 0644
-  when: ntp_host
+  when: 
+    - ntp_host
+    - ansible_distribution_major_version|int < 10
   notify:
     - rebuild_iptables
+
+- name: IPv4 nftables rules for ntpd host
+  ansible.builtin.template:
+    src: nftables-service-ntpd.j2
+    dest: /etc/sysconfig/nftables.d/01-input-service-policy-ntpd
+    mode: 0644
+  when: 
+    - ntp_host
+    - ansible_distribution_major_version|int > 9
+  notify:
+    - rebuild_nftables
     
